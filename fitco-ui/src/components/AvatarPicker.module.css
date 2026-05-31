@@ -1,0 +1,191 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editDot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  font-size: 9px;
+  background: #C9A84C;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Avatar shapes */
+.avatarDefault {
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4338CA, #7C3AED);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.avatarImg {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.avatarEmoji {
+  border-radius: 50%;
+  background: #1E2530;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Popup */
+.popup {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.14), 0 1px 4px rgba(0,0,0,0.06);
+  width: 320px;
+  padding: 20px;
+  z-index: 999;
+  border: 1px solid #E5E7EB;
+}
+
+.popupTitle {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #6B7280;
+  margin: 0 0 14px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  background: #F9FAFB;
+  border-radius: 8px;
+  padding: 3px;
+  border: 1px solid #E5E7EB;
+}
+
+.tab {
+  flex: 1;
+  padding: 7px 4px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6B7280;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+}
+
+.activeTab {
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.35);
+}
+
+/* Emoji grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+}
+
+.emojiBtn {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 5px 2px;
+  transition: background 0.12s, transform 0.1s;
+  line-height: 1;
+}
+.emojiBtn:hover {
+  background: #F3F4F6;
+  transform: scale(1.15);
+}
+
+/* Cartoon grid */
+.cartoonGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.cartoonBtn {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.15s, opacity 0.15s;
+}
+.cartoonBtn:hover { transform: scale(1.06); }
+
+.cartoonEmoji { font-size: 24px; line-height: 1; }
+.cartoonLabel { font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; text-transform: uppercase; }
+
+/* Photo upload */
+.photoArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0 10px;
+}
+
+.photoHint {
+  font-size: 13px;
+  color: #9CA3AF;
+  margin: 0;
+  text-align: center;
+}
+
+.uploadBtn {
+  padding: 10px 24px;
+  background: #111827;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.3px;
+}
+.uploadBtn:hover { background: linear-gradient(135deg, #6366F1, #8B5CF6); }
