@@ -1,0 +1,83 @@
+/* Color levels — indigo intensity */
+:root {
+  --c0: #EEF2FF;
+  --c1: #C7D2FE;
+  --c2: #818CF8;
+  --c3: #6366F1;
+  --c4: #4338CA;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gridRow {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.rowLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 2px;
+}
+
+.rowLabel {
+  font-size: 9px;
+  color: #94A3B8;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  width: 22px;
+}
+
+.grid {
+  display: flex;
+  gap: 3px;
+}
+
+.weekCol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  cursor: default;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.cell:hover { opacity: 0.75; }
+
+.cellToday {
+  outline: 2px solid #6366F1;
+  outline-offset: 1px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.legendLabel {
+  font-size: 10px;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+.legendCell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}

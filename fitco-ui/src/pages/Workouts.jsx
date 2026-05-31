@@ -1,84 +1,48 @@
 import { useState } from 'react';
+import { MUSCLES, WORKOUTS } from '../data/exercises';
+import VideoModal from '../components/VideoModal';
 import styles from './Workouts.module.css';
 
-const MUSCLES = [
-  { key: 'chest',    label: 'Chest',    icon: '▣' },
-  { key: 'biceps',   label: 'Biceps',   icon: '▣' },
-  { key: 'back',     label: 'Back',     icon: '▣' },
-  { key: 'triceps',  label: 'Triceps',  icon: '▣' },
-  { key: 'shoulder', label: 'Shoulder', icon: '▣' },
-  { key: 'legs',     label: 'Legs',     icon: '▣' },
-  { key: 'abs',      label: 'Abs',      icon: '▣' },
-];
+function ExerciseCard({ exercise, index, onClick }) {
+  return (
+    <div className={styles.card} onClick={() => onClick(exercise)}>
+      {/* Image */}
+      <div className={styles.cardImgWrap}>
+        <img
+          src={exercise.image}
+          alt={exercise.name}
+          className={styles.cardImg}
+          loading="lazy"
+        />
+        {/* Play overlay */}
+        <div className={styles.playOverlay}>
+          <div className={styles.playBtn}>▶</div>
+          <span className={styles.playLabel}>Watch Form</span>
+        </div>
+      </div>
 
-const WORKOUTS = {
-  chest: [
-    { name: 'Bench Press',            sets: '4 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Incline Dumbbell Press', sets: '3 sets × 10–12 reps',      level: 'Beginner' },
-    { name: 'Decline Bench Press',    sets: '3 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Push-Ups',               sets: '3 sets × 15–20 reps',      level: 'Beginner' },
-    { name: 'Cable Fly',              sets: '3 sets × 12–15 reps',      level: 'Intermediate' },
-    { name: 'Dips (Chest Focus)',      sets: '3 sets × 10–12 reps',     level: 'Advanced' },
-  ],
-  biceps: [
-    { name: 'Barbell Curl',           sets: '4 sets × 10–12 reps',      level: 'Beginner' },
-    { name: 'Hammer Curl',            sets: '3 sets × 12 reps',         level: 'Beginner' },
-    { name: 'Incline Dumbbell Curl',  sets: '3 sets × 10 reps',         level: 'Intermediate' },
-    { name: 'Concentration Curl',     sets: '3 sets × 12 reps',         level: 'Intermediate' },
-    { name: 'Cable Curl',             sets: '3 sets × 15 reps',         level: 'Beginner' },
-    { name: 'Preacher Curl',          sets: '3 sets × 10 reps',         level: 'Advanced' },
-  ],
-  back: [
-    { name: 'Pull-Ups',               sets: '4 sets × 6–10 reps',       level: 'Intermediate' },
-    { name: 'Bent-Over Barbell Row',  sets: '4 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Lat Pulldown',           sets: '3 sets × 12 reps',         level: 'Beginner' },
-    { name: 'Seated Cable Row',       sets: '3 sets × 12 reps',         level: 'Beginner' },
-    { name: 'Deadlift',               sets: '3 sets × 5–6 reps',        level: 'Advanced' },
-    { name: 'Single-Arm Dumbbell Row',sets: '3 sets × 10 reps',         level: 'Beginner' },
-  ],
-  triceps: [
-    { name: 'Close-Grip Bench Press', sets: '4 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Tricep Pushdown',        sets: '3 sets × 12–15 reps',      level: 'Beginner' },
-    { name: 'Skull Crushers',         sets: '3 sets × 10–12 reps',      level: 'Intermediate' },
-    { name: 'Overhead Tricep Extension', sets: '3 sets × 12 reps',      level: 'Beginner' },
-    { name: 'Dips (Tricep Focus)',    sets: '3 sets × 10–12 reps',       level: 'Intermediate' },
-    { name: 'Diamond Push-Ups',       sets: '3 sets × 15 reps',         level: 'Beginner' },
-  ],
-  shoulder: [
-    { name: 'Overhead Press',         sets: '4 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Lateral Raises',         sets: '3 sets × 15 reps',         level: 'Beginner' },
-    { name: 'Front Raises',           sets: '3 sets × 12 reps',         level: 'Beginner' },
-    { name: 'Arnold Press',           sets: '3 sets × 10 reps',         level: 'Intermediate' },
-    { name: 'Rear Delt Fly',          sets: '3 sets × 15 reps',         level: 'Beginner' },
-    { name: 'Face Pulls',             sets: '3 sets × 15 reps',         level: 'Intermediate' },
-  ],
-  legs: [
-    { name: 'Squat',                  sets: '4 sets × 8–10 reps',       level: 'Intermediate' },
-    { name: 'Leg Press',              sets: '4 sets × 10–12 reps',      level: 'Beginner' },
-    { name: 'Romanian Deadlift',      sets: '3 sets × 10 reps',         level: 'Intermediate' },
-    { name: 'Leg Curl',               sets: '3 sets × 12 reps',         level: 'Beginner' },
-    { name: 'Leg Extension',          sets: '3 sets × 15 reps',         level: 'Beginner' },
-    { name: 'Walking Lunges',         sets: '3 sets × 12 reps / leg',   level: 'Beginner' },
-    { name: 'Calf Raises',            sets: '4 sets × 20 reps',         level: 'Beginner' },
-  ],
-  abs: [
-    { name: 'Plank',                  sets: '3 sets × 60 sec',          level: 'Beginner' },
-    { name: 'Crunches',               sets: '4 sets × 20 reps',         level: 'Beginner' },
-    { name: 'Leg Raises',             sets: '3 sets × 15 reps',         level: 'Intermediate' },
-    { name: 'Russian Twists',         sets: '3 sets × 20 reps',         level: 'Beginner' },
-    { name: 'Cable Crunch',           sets: '3 sets × 15 reps',         level: 'Intermediate' },
-    { name: 'Hanging Knee Raise',     sets: '3 sets × 15 reps',         level: 'Advanced' },
-  ],
-};
-
+      {/* Body */}
+      <div className={styles.cardBody}>
+        <span className={styles.cardNum}>{String(index + 1).padStart(2, '0')}</span>
+        <div>
+          <p className={styles.cardName}>{exercise.name}</p>
+          <p className={styles.cardSets}>{exercise.sets}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Workouts() {
   const [activeTab, setActiveTab] = useState('chest');
+  const [selected, setSelected]   = useState(null);   // null = modal closed
+
   const exercises = WORKOUTS[activeTab];
-  const muscle = MUSCLES.find(m => m.key === activeTab);
+  const muscle    = MUSCLES.find(m => m.key === activeTab);
 
   return (
     <div className={styles.wrapper}>
+      {/* Tabs */}
       <div className={styles.tabBar}>
         {MUSCLES.map(m => (
           <button
@@ -91,25 +55,46 @@ export default function Workouts() {
         ))}
       </div>
 
+      {/* Content */}
       <div className={styles.content}>
+        {activeTab === 'fullbody' && (
+          <div className={styles.fullBodyBanner}>
+            <div>
+              <p className={styles.bannerEyebrow}>No Equipment Needed</p>
+              <h2 className={styles.bannerTitle}>Full Body Workout</h2>
+              <p className={styles.bannerSub}>Yoga · Calisthenics · Conditioning — all in one session</p>
+            </div>
+            <span className={styles.bannerIcon}>🧘</span>
+          </div>
+        )}
+
         <div className={styles.sectionHeader}>
           <p className={styles.sectionEyebrow}>Training</p>
-          <h2 className={styles.sectionTitle}>{muscle.label} Workout</h2>
-          <p className={styles.sectionSub}>{exercises.length} exercises</p>
+          <h2 className={styles.sectionTitle}>{activeTab !== 'fullbody' ? `${muscle.label} Workout` : 'All Exercises'}</h2>
+          <p className={styles.sectionSub}>
+            {exercises.length} exercises · Click any card to watch proper form
+          </p>
         </div>
 
         <div className={styles.grid}>
           {exercises.map((ex, i) => (
-            <div className={styles.card} key={i}>
-              <div className={styles.cardNum}>{String(i + 1).padStart(2, '0')}</div>
-              <div className={styles.cardBody}>
-                <div className={styles.cardName}>{ex.name}</div>
-                <div className={styles.cardSets}>{ex.sets}</div>
-              </div>
-            </div>
+            <ExerciseCard
+              key={ex.name}
+              exercise={ex}
+              index={i}
+              onClick={setSelected}
+            />
           ))}
         </div>
       </div>
+
+      {/* Modal — only rendered when a card is selected, destroying iframe on close */}
+      {selected && (
+        <VideoModal
+          exercise={selected}
+          onClose={() => setSelected(null)}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Workouts from './Workouts';
+import MyWorkout from './MyWorkout';
 import Settings from './Settings';
 import AvatarPicker from '../components/AvatarPicker';
 import styles from './Dashboard.module.css';
@@ -24,9 +25,10 @@ function LiveClock() {
 }
 
 const NAV = [
-  { key: 'home',     label: 'Home',     icon: '🏠' },
-  { key: 'workout',  label: 'Workout',  icon: '🏋️' },
-  { key: 'settings', label: 'Settings', icon: '⚙️' },
+  { key: 'home',      label: 'Home',       icon: '🏠' },
+  { key: 'workout',   label: 'Workout',    icon: '🏋️' },
+  { key: 'myworkout', label: 'My Workout', icon: '📋' },
+  { key: 'settings',  label: 'Settings',   icon: '⚙️' },
 ];
 
 export default function Dashboard() {
@@ -64,9 +66,10 @@ export default function Dashboard() {
         </aside>
 
         <div className={styles.content}>
-          {page === 'home'     && <Home />}
-          {page === 'workout'  && <Workouts />}
-          {page === 'settings' && <Settings />}
+          {page === 'home'      && <Home />}
+          {page === 'workout'   && <Workouts />}
+          {page === 'myworkout' && <MyWorkout />}
+          {page === 'settings'  && <Settings />}
         </div>
       </div>
     </div>
